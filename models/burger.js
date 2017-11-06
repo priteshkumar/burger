@@ -2,14 +2,14 @@ var orm = require("../config/orm.js");
 
 
 var ormModel = {
-	showDb:function(){
-      orm.selectAll("burgers");
+	showDb:function(cb){
+      orm.selectAll("burgers",cb);
 	},
-	addBurger:function(burgerName){
-		orm.insertOne("burgers","burger_name","devoured",burgerName,false);
+	addBurger:function(burgerName,cb){
+		orm.insertOne("burgers","burger_name","devoured",burgerName,false,cb);
 	},
-	changeBurgerstatus:function(burgerId){
-		orm.updateOne("burgers","devoured",true,"id",burgerId);
+	changeBurgerstatus:function(burgerId,cb){
+		orm.updateOne("burgers","devoured",true,"id",burgerId,cb);
 	}
 };
 

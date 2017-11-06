@@ -1,0 +1,75 @@
+<div class="container-full">
+  <div class="row" id="mainrow">
+    <div class="col-md-4 col-md-offset-1" id="newburgers">
+      <ul>
+      {{#each burgers}}
+        <li>
+          <p>
+          {{this.id}}. {{this.burger_name}}
+
+          <button data-burgerid="{{this.id}}" class="devourburger">Devour</button>
+          </p>
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+    <div class="col-md-4" id="burgeradd">
+    <div id="burgerimage">
+    <img src="/assets/img/burger.jpg" width="200px" height="200px" class="img-responsive" id="bimage">
+    </div>
+    <h2>Add a burger</h2>
+      <form role="form" id="addburger">
+        <div class="form-group">
+          <label for="burgername"></label>
+          <input type="text" class="form-control" id="burgername">
+          </div>
+        <div class="text-center" id="submitdiv">
+          <button type="submit" class="btn btn-primary submit" id="submitbtn">Submit</button>
+        </div>
+      </form>
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+ 
+  $("#addburger").on("submit", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var newburger = {
+      burger: $("#addburger [id=burgername]").val().trim()
+    };
+
+    // Send the POST request.
+    $.ajax("/api/burgers", {
+      type: "POST",
+      data: newburger
+    }).then(
+      function() {
+        console.log("added new burger");
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+
+  $(".devourburger").on("click", function(event) {
+    // Make sure to preventDefault on a submit event.
+    event.preventDefault();
+
+    var id = $(this).attr("data-burgerid").val().trim();
+
+        // Send the PUT request.
+    $.ajax("/api/burgers" + id, {
+      type: "PUT"
+    }).then(
+      function() {
+        console.log("updated id ", id);
+        // Reload the page to get the updated list
+        location.reload();
+      }
+    );
+  });
+</script>

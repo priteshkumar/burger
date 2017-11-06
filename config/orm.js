@@ -3,14 +3,14 @@ var connection = require("./connection.js");
 // Object Relational Mapper (ORM)
 
 var orm = {
-  selectAll: function(tableInput) {
+  selectAll: function(tableInput,cb) {
     var queryString = "SELECT * FROM ??";
     connection.query(queryString, [tableInput], function(err, result) {
       console.log(result);
-      
+      cb(err,result);
     });
   },
-  insertOne: function(tableInput,burgerCol,devourCol,burgerName,devoured) {
+  insertOne: function(tableInput,burgerCol,devourCol,burgerName,devoured,cb) {
     var queryString = "insert into ?? (??, ??) values ?";
 
     var burgerParams = [[]];
@@ -23,10 +23,10 @@ var orm = {
       }
 
       console.log(result);
-      
+      cb(err,result);
     });
   },
-  updateOne: function(tableInput,devourCol,devoured,burgerIdCol,burgerId) {
+  updateOne: function(tableInput,devourCol,devoured,burgerIdCol,burgerId,cb) {
     var queryString = "update ?? set ?? = ? where ?? = ?";
 
     connection.query(queryString, [tableInput,devourCol,devoured,burgerIdCol,burgerId], function(err, result) {
@@ -34,6 +34,7 @@ var orm = {
         console.log(err);
       }
       console.log(result);
+      cb(err,result);
     });
   }
 };

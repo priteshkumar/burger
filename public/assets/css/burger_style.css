@@ -1,0 +1,16 @@
+body{
+	background-color:orange;
+}
+
+#mainrow{
+	margin-top:40px;
+	margin-left:15px;
+	margin-right:15px;
+	padding-top:60px;
+}
+
+li {
+  padding: 5px;
+  margin: 5px;
+  background: #faebd7;
+}
