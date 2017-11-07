@@ -1,6 +1,6 @@
 <div class="container-full">
   <div class="row" id="mainrow">
-    <div class="col-md-4 col-md-offset-1" id="newburgers">
+    <div class="col-md-3" id="newburgers">
       <ul>
       {{#each burgers}}
         <li>
@@ -13,23 +13,34 @@
       {{/each}}
       </ul>
     </div>
-    <div class="col-md-4" id="burgeradd">
+    <div class="col-md-4 text-center" id="burgeradd">
     <div id="burgerimage">
-    <img src="/assets/img/burger.jpg" width="200px" height="200px" class="img-responsive" id="bimage">
+    <img src="/assets/img/burger1.png" width="150px" height="150px" class="img-responsive" id="bimage">
+    <h4><i>Get Into BurgerZone!!</i></h4>
     </div>
-    <h2>Add a burger</h2>
       <form role="form" id="addburger">
         <div class="form-group">
           <label for="burgername"></label>
-          <input type="text" class="form-control" id="burgername">
+          <input type="text" class="form-control" id="burgername" placeholder="Add a burger..">
           </div>
         <div class="text-center" id="submitdiv">
           <button type="submit" class="btn btn-primary submit" id="submitbtn">Submit</button>
         </div>
       </form>
     </div>
-
-
+    <div class="col-md-3" id="devouredburgers">
+      <ul>
+      {{#each devoured}}
+        <li>
+          <p>
+          {{this.id}}. {{this.burger_name}}
+          </p>
+        </li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
 
 <script src="https://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
@@ -58,11 +69,13 @@
   $(".devourburger").on("click", function(event) {
     // Make sure to preventDefault on a submit event.
     event.preventDefault();
-
-    var id = $(this).attr("data-burgerid").val().trim();
+    console.log($(this));
+    var id = $(this).attr("data-burgerid").trim();
+    console.log("logging burgerId");
+    console.log(id);
 
         // Send the PUT request.
-    $.ajax("/api/burgers" + id, {
+    $.ajax("/api/burgers/" + id, {
       type: "PUT"
     }).then(
       function() {

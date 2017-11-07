@@ -6,7 +6,7 @@ var orm = {
   selectAll: function(tableInput,cb) {
     var queryString = "SELECT * FROM ??";
     connection.query(queryString, [tableInput], function(err, result) {
-      console.log(result);
+      //console.log(result);
       cb(err,result);
     });
   },
@@ -22,7 +22,7 @@ var orm = {
         console.log(err);
       }
 
-      console.log(result);
+      //console.log(result);
       cb(err,result);
     });
   },
@@ -33,7 +33,7 @@ var orm = {
       if(err){
         console.log(err);
       }
-      console.log(result);
+      //console.log(result);
       cb(err,result);
     });
   }

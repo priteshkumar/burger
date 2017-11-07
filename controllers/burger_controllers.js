@@ -10,9 +10,25 @@ app.get("/", function(req, res) {
     if (err) {
       return res.status(500).end();
     }
-    console.log(data);
-    res.render("index",{burgers:data});
+    //console.log(data);
+    var goodburgers = [];
+    var devouredburgers = [];
+    for(var i=0;i < data.length;i++){
+    	if(data[i].devoured == true){
+    		devouredburgers.push(data[i]);
+    	}
+    	else {
+    		goodburgers.push(data[i]);
+    	}
+    }
+
+    console.log(devouredburgers);
+    console.log(goodburgers);
+    res.render("index",{burgers:goodburgers,
+    					devoured:devouredburgers});
   });
+
+
 });
 
 
@@ -41,7 +57,9 @@ app.post("/api/burgers", function(req, res) {
  
 
 app.put("/api/burgers/:id", function(req, res) {
-  ormModel.changeBurgerstatus(req.params.id, function(err, result) {
+  console.log("change burger status to devoured");
+  console.log(req.params.id);
+  ormModel.changeBurgerstatus(parseInt(req.params.id), function(err, result) {
     if (err) {
       // If an error occurred, send a generic server faliure
       return res.status(500).end();
